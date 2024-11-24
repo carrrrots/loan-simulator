@@ -19,7 +19,7 @@ gem 'dotenv-rails', groups: [:development, :test] # Gerenciamento de variáveis 
 
 # Testes
 gem 'rspec-rails', group: [:development, :test] # Framework principal de testes
-gem 'factory_bot', '~> 6.1.0'
+gem 'factory_bot_rails', '~> 6.1', group: [:development, :test]
 gem 'faker', group: [:development, :test] # Geração de dados fictícios
 gem 'simplecov', require: false, group: :test # Cobertura de testes
 
