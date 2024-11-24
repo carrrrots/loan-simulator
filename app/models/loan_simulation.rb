@@ -1,0 +1,2 @@
+class LoanSimulation < ApplicationRecord
+end
