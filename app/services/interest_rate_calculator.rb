@@ -13,11 +13,4 @@ class InterestRateCalculator
       0.04
     end
   end
-
-  private
-
-  def validate_positive_integer(value, name)
-    raise ArgumentError, "#{name} must be a positive integer" unless value.is_a?(Integer) && value > 0
-    value
-  end
 end

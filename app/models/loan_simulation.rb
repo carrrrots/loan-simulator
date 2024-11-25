@@ -9,6 +9,16 @@ class LoanSimulation < ApplicationRecord
   # Escopos
   scope :recent, -> { order(created_at: :desc) }
 
+  def as_json(options = {})
+    super(options).merge(
+      loan_amount: self.loan_amount.to_f,
+      monthly_payment: self.monthly_payment.to_f,
+      total_amount: self.total_amount.to_f,
+      total_interest: self.total_interest.to_f,
+      interest_rate: self.interest_rate.to_f
+    )
+  end
+
   private
 
   # Validação para impedir datas de nascimento no futuro

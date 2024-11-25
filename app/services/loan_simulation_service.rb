@@ -14,7 +14,7 @@ class LoanSimulationService
     interest_rate = fetch_interest_rate(age)
     monthly_payment = calculate_monthly_payment(interest_rate)
     build_success_response(monthly_payment, interest_rate)
-  rescue ArgumentError => e
+  rescue ArgumentError, ActiveRecord::RecordInvalid => e
     build_error_response(e.message)
   end
 

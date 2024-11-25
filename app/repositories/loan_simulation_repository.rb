@@ -6,8 +6,8 @@ class LoanSimulationRepository
     loan_simulation.save!
     loan_simulation
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error("Failed to save loan simulation: #{loan_simulation.errors}")
-    raise ArgumentError, "Invalid loan simulation: #{loan_simulation.errors}"
+    Rails.logger.error("Failed to save loan simulation: #{loan_simulation.errors.full_messages.join(', ')}")
+    raise ArgumentError, "Invalid loan simulation: #{loan_simulation.errors.full_messages.join(', ')}"
   end
 
   def find_by_id(id)
