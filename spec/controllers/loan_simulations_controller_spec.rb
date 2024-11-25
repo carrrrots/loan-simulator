@@ -1,47 +1,61 @@
 require 'rails_helper'
 
 RSpec.describe LoanSimulationsController, type: :controller do
+  describe 'GET #index' do
+    let!(:simulations) { create_list(:loan_simulation, 3) }
+
+    it 'returns all simulations' do
+      get :index
+
+      expect(response).to have_http_status(:ok)
+      response_body = JSON.parse(response.body)
+      expect(response_body.size).to eq(3)
+    end
+  end
+
   describe 'POST #create' do
     let(:valid_params) do
-      { loan_amount: 10_000, birthdate: '1990-01-01', term_in_months: 12 }
+      { loan_simulation: { loan_amount: 100000, birthdate: '1990-01-01', term_in_months: 24 } }
     end
 
     let(:invalid_params) do
-      { loan_amount: -10_000, birthdate: '', term_in_months: 0 }
-    end
-
-    let(:simulation_response) do
-      {
-        monthly_payment: 858.36,
-        total_amount: 10_300.32,
-        total_interest: 300.32
-      }
-    end
-
-    before do
-      allow_any_instance_of(LoanSimulationService).to receive(:perform).and_return(simulation_response)
-      allow_any_instance_of(LoanSimulationRepository).to receive(:create).and_return(true)
+      { loan_simulation: { loan_amount: -10_000, birthdate: '', term_in_months: 0 } }
     end
 
     context 'with valid parameters' do
+      let(:loan_simulation_service) { instance_double(LoanSimulationService) }
+      let(:loan_simulation) do
+        create(
+          :loan_simulation,
+          loan_amount: 1000,
+          term_in_months: 12,
+          birthdate: '1990-01-01',
+          monthly_payment: 100,
+          total_amount: 1200,
+          total_interest: 200
+        )
+      end
+
+      before do
+        allow(LoanSimulationService).to receive(:new).and_return(loan_simulation_service)
+        allow(loan_simulation_service).to receive(:perform).and_return(
+          Responses::LoanSimulationResponse.new(
+            success: true,
+            loan_simulation: loan_simulation
+          )
+        )
+      end
+
       it 'returns a successful loan simulation' do
         post :create, params: valid_params
 
         expect(response).to have_http_status(:created)
         response_body = JSON.parse(response.body)
-        expect(response_body).to include(
-          'monthly_payment' => simulation_response[:monthly_payment],
-          'total_amount' => simulation_response[:total_amount],
-          'total_interest' => simulation_response[:total_interest]
-        )
+        expect(response_body['loan_simulation']).to include('loan_amount', 'term_in_months', 'birthdate', 'monthly_payment', 'total_amount', 'total_interest')
       end
     end
 
     context 'with invalid parameters' do
-      before do
-        allow_any_instance_of(LoanSimulationRepository).to receive(:create).and_return(false)
-      end
-
       it 'returns an unprocessable entity status' do
         post :create, params: invalid_params
 

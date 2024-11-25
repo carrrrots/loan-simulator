@@ -285,6 +285,9 @@ DEPENDENCIES
   rails (~> 6.1.7, >= 6.1.7.6)
   rspec-rails
   rswag
+  rswag-api
+  rswag-specs
+  rswag-ui
   rubocop
   sidekiq
   simplecov

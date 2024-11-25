@@ -31,6 +31,9 @@ gem 'pg_search' # Busca full-text otimizada
 # APIs e serialização
 gem 'jbuilder' # Geração de JSON de forma flexível
 gem 'rswag' # Documentação de APIs com Swagger
+gem 'rswag-api'
+gem 'rswag-ui'
+gem 'rswag-specs'
 
 # Background Jobs (opcional para tarefas assíncronas)
 gem 'sidekiq' # Gerenciamento de filas de jobs assíncronos

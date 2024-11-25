@@ -1,0 +1,66 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/loan_simulations":
+    get:
+      summary: list loan simulations
+      tags:
+      - Loan Simulations
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    loan_amount:
+                      type: number
+                    term_in_months:
+                      type: integer
+                    monthly_payment:
+                      type: number
+                  required:
+                  - id
+                  - loan_amount
+                  - term_in_months
+                  - monthly_payment
+    post:
+      summary: create a loan simulation
+      tags:
+      - Loan Simulations
+      parameters: []
+      responses:
+        '201':
+          description: created
+        '422':
+          description: unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                loan_amount:
+                  type: number
+                birthdate:
+                  type: string
+                  format: date
+                term_in_months:
+                  type: integer
+              required:
+              - loan_amount
+              - birthdate
+              - term_in_months
+servers:
+- url: http://localhost:3000
+  variables:
+    defaultHost:
+      default: www.loan-simulator.com
