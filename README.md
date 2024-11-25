@@ -14,8 +14,8 @@ Docker Compose: Included with Docker Desktop or install separately if needed.
 ### 1. Clone the Repository
 
 <!-- ```bash -->
-git clone <repository_url>
-cd <repository_directory>
+git clone git@github.com:carrrrots/loan-simulator.git
+cd loan-simulator
 
 ### 2. Build the Docker Containers
 docker-compose up --build
@@ -108,13 +108,9 @@ Possible Errors:
   }
 
 ### 8. Estrutura de Diretórios:
-- app/controllers: Controladores para gerenciar requisições.
-- app/models: Modelos e validações do banco de dados.
-- app/services: Lógica de negócios como cálculos e validações.
+- app/controllers: Contains controllers responsible for managing HTTP requests and responses.
+- app/models: Houses Active Record models, which represent and validate database records.
+- app/services: Contains business logic and reusable components that perform calculations and other complex operations.
+- app/validators: Includes custom validation logic used throughout the application.
 - app/repositories: Abstração para interação com o banco de dados.
-
-### 9. Melhorias Futuras
-Implementar autenticação e autorização.
-Adicionar suporte a diferentes tipos de juros.
-Melhorar logs e monitoramento.
-
+- app/specs: Contains unit and integration tests for the application to ensure its reliability.
