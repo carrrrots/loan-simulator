@@ -6,25 +6,25 @@ This project provides a Loan Simulation Service for calculating and managing loa
 
 Ensure the following tools are installed on your machine:
 
-Docker: [Docker Install](https://docs.docker.com/get-docker/)
-Docker Compose: Included with Docker Desktop or install separately if needed.
+- Docker: [Docker Install](https://docs.docker.com/get-docker/)
+- Docker Compose: Included with Docker Desktop or install separately if needed.
 
 ## Setup and Run Instructions
 
 ### 1. Clone the Repository
 
 <!-- ```bash -->
-git clone git@github.com:carrrrots/loan-simulator.git
-cd loan-simulator
+- git clone git@github.com:carrrrots/loan-simulator.git
+- cd loan-simulator
 
 ### 2. Build the Docker Containers
-docker-compose up --build
+- docker-compose up --build
 
 ### 3. Setup the Database
-docker-compose exec --rm app rails db:create db:migrate
+- docker-compose exec --rm app rails db:create db:migrate
 
 ### 4. Start the Application
-docker-compose up
+- docker-compose up
 
 A aplicação estará disponível em [localhost](http://localhost:3000).
 
@@ -36,7 +36,7 @@ A aplicação estará disponível em [localhost](http://localhost:3000).
 - API Endpoints: Access directly at [localhost](http://localhost:3000)
 
 ### 6. Testes
-docker-compose exec --rm app bundle exec rspec
+- docker-compose exec --rm app bundle exec rspec
 <!-- docker-compose run --rm -e RAILS_ENV=test app bundle exec rspec -->
 
 ### 7. Endpoints
